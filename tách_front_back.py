@@ -152,9 +152,10 @@ def topic_page():
             ui.button('Topic 3', on_click=lambda: dic.set_topic('Topic 3 - Hard')).style('margin: 10px; padding: 15px; font-size: 18px;')
             ui.button('Topic 4', on_click=lambda: dic.set_topic('Topic 4 - Hard')).style('margin: 10px; padding: 15px; font-size: 18px;')
             ui.button('Topic 5', on_click=lambda: dic.set_topic('Topic 5 - Hard')).style('margin: 10px; padding: 15px; font-size: 18px;')        
-            
-    # Nút Quay lại căn trái
-    ui.button('Quay lại', on_click=redirect('/')).style('margin: 10px 0; padding: 15px; font-size: 18px; align-self: flex-start;')
+    with ui.row().style('width: 100%; padding: 0 20px;'):
+            ui.button('Quay lại', 
+                     on_click=lambda: redirect('/')
+                     ).style('margin: 20px 0; padding: 15px; font-size: 18px;')
 
 @ui.page('/dictation')
 def dictation_page():
@@ -177,8 +178,8 @@ def dictation_page():
         ui.button('Hiển thị đáp án', on_click=dic.show_answer).style('margin: 10px; padding: 15px; font-size: 18px;')
 
     with ui.row().style('justify-content: center; margin: 10px 0;'):
-        ui.button('Chọn độ khó', on_click=redirect('/')).style('margin: 10px; padding: 15px; font-size: 18px;')
-        ui.button('Chọn chủ đề', on_click=redirect('/topic')).style('margin: 10px; padding: 15px; font-size: 18px;')
+        ui.button('Chọn độ khó', on_click=lambda:redirect('/')).style('margin: 10px; padding: 15px; font-size: 18px;')
+        ui.button('Chọn chủ đề', on_click=lambda:redirect('/topic')).style('margin: 10px; padding: 15px; font-size: 18px;')
 
 dic = Dictation()
 ui.run()
