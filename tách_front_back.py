@@ -39,13 +39,13 @@ class Dictation:
         if self.user_answer:
             result = self.check_answer()
             if result:
+                self.play_sound("https://raw.githubusercontent.com/Phamlong2675/Python-Project/refs/heads/main/Audio/effect%20sound/sound_correct.wav")
                 self.notification_label.text = 'Câu trả lời đúng!'
                 self.notification_label.style('color: green;')
-                self.play_sound("https://raw.githubusercontent.com/Phamlong2675/Python-Project/refs/heads/main/Audio/effect%20sound/sound_correct.wav")
             else:
+                self.play_sound("https://raw.githubusercontent.com/Phamlong2675/Python-Project/refs/heads/main/Audio/effect%20sound/sound_wrong.mp3")
                 self.notification_label.text = 'Câu trả lời sai!'
                 self.notification_label.style('color: red;')
-                self.play_sound("https://raw.githubusercontent.com/Phamlong2675/Python-Project/refs/heads/main/Audio/effect%20sound/sound_wrong.mp3")
         else:
             self.notification_label.text = 'Vui lòng nhập câu trả lời trước khi kiểm tra.'
             self.notification_label.style('color: orange;')
