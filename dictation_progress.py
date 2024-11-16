@@ -92,7 +92,7 @@ class Dictation:
         self.start_dictation()
 
     def input_value(self):
-        self.input = ui.input('Nhập câu trả lời của bạn:', on_change=lambda: setattr(self, 'user_answer', self.input.value)).style('margin-bottom: 10px; font-size: 24px; width: 400px; padding: 10px;')
+        self.input = ui.input('Nhập câu trả lời của bạn:', on_change=lambda: setattr(self, 'user_answer', self.input.value)).style('margin-bottom: 10px; font-size: 24px; width: 500px; padding: 10px;')
 
     def start_dictation(self):
         if self.selected_difficulty == 'Easy':
