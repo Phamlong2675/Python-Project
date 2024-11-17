@@ -5,7 +5,7 @@ import sqlite3
 
 class Dictation:
     def __init__(self):
-        self.index = 0
+        self.index = 1
         self.user_answer = ""
         self.audio_player = None
         self.data = pd.DataFrame()  # Khởi tạo DataFrame rỗng
@@ -21,6 +21,7 @@ class Dictation:
         self.render_difficulty_page()  # Khởi động ứng dụng tại trang chọn độ khó
 
     def update_audio_file(self):
+        #lấy file audio từ sql
         audio_file = self.get_audio_file_path()
 
         if self.audio_player:
@@ -35,35 +36,33 @@ class Dictation:
 
     def check_answer(self):
         user_words = self.normalize(self.user_answer).strip().split()
-        correct_answer = self.get_correct_answer()
+        correct_answer = self.get_correct_answer() # Lấy đáp án từ sql để so sánh với user_answer
         correct_words = self.normalize(correct_answer).strip().split()
         return user_words == correct_words
 
     def check_answer_click(self):
-        question_name = f"(Q{self.index})"
-        if self.user_answer:
-            result = self.check_answer()
+        if self.user_answer: # Nếu người người dùng đã nhập câu trả lời
+            result = self.check_answer() # Kiểm tra đáp án
             if result:
-                self.notification_label.text = 'Câu trả lời đúng!'
+                self.notification_label.text = 'Correct answer!'
                 self.notification_label.style('color: green;')
-                self.update_progress_status('correct')
+                self.update_progress_status('correct')  # Cập nhật trạng thái cấu hỏi sang correct trên sql
             else:
-                self.notification_label.text = 'Câu trả lời sai!'
+                self.notification_label.text = 'Wrong answer!'
                 self.notification_label.style('color: red;')
-                self.update_progress_status('incorrect')
-        else:
-            self.notification_label.text = 'Vui lòng nhập câu trả lời trước khi kiểm tra.'
+                self.update_progress_status('incorrect')  # Cập nhật trạng thái cấu hỏi sang incorrect trên sql
+        else: # Nếu người người dùng chưa nhập câu trả lời, thông báo lỗi
+            self.notification_label.text = 'Please enter your answer before checking.'
             self.notification_label.style('color: orange;')
 
     def show_answer(self):
-        question_name = f"(Q{self.index})"
-        correct_answer = self.get_correct_answer('user_name', self.selected_topic, question_name)
-        self.notification_label.text = f"Câu trả lời đúng là: '{correct_answer}'"
-        self.notification_label.style('color: blue;')
+        correct_answer = self.get_correct_answer() # Lấy đáp án từ sql để so sánh với user_answer
+        self.notification_label.text = f"Answer: '{correct_answer}'"
+        self.notification_label.style('color: green;')
 
     def skip(self):
         self.index = (self.index % 10) + 1  # Tăng chỉ số và quay lại đầu nếu vượt quá
-        self.user_answer = ""
+        self.user_answer = "" # Xóa câu trả lời cũ
         self.input.value = ""  # Xóa ô nhập câu trả lời
         self.notification_label.text = ""  # Xóa nội dung thông báo
         self.update_audio_file()  # Cập nhật âm thanh cho câu tiếp theo
@@ -75,7 +74,7 @@ class Dictation:
             self.index -= 1
         else:
             self.index = 10
-        self.user_answer = ""
+        self.user_answer = "" # Xóa câu trả lời cũ
         self.input.value = ""  # Xóa ô nhập câu trả lời
         self.notification_label.text = ""  # Xóa nội dung thông báo
         self.update_audio_file()  # Cập nhật âm thanh cho câu tiếp theo
@@ -83,13 +82,13 @@ class Dictation:
         self.no_sens = ui.label(f'({self.index}/10)').style('font-size: 18px;')
 
     def go_to_topic_selection(self, difficulty):
-        self.selected_difficulty = difficulty
+        self.selected_difficulty = difficulty # Lưu độ khó đã chọn
         self.render_topic_page()  # Hiển thị trang chọn chủ đề
 
     def set_topic(self, topic):
-        self.selected_topic = topic
+        self.selected_topic = topic # Lưu chủ đề đã chọn
         self.index = 1
-        self.render_dictation_page()
+        self.render_dictation_page() # Hiển thị trang dictation
 
     def render_difficulty_page(self):
             self.difficulty_column.clear()  # Xóa nội dung cũ
