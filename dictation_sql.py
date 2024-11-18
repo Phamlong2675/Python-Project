@@ -56,7 +56,7 @@ class Dictation:
             self.notification_label.style('color: orange;')
 
     def show_answer(self):
-        correct_answer = self.get_correct_answer() # Lấy đáp án từ sql để so sánh với user_answer
+        correct_answer = self.get_correct_answer() # Lấy đáp án từ sql
         self.notification_label.text = f"Answer: '{correct_answer}'"
         self.notification_label.style('color: green;')
 
