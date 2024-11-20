@@ -23,10 +23,9 @@ class Dictation:
         audio_file = self.data.iloc[self.index]['audio_file']
         
         if self.audio_player:
-            self.audio_player.delete()  # Xóa đối tượng âm thanh cũ
-        # Tạo đối tượng âm thanh mới và hiển thị thanh điều khiển
+            self.audio_player.delete()
         self.audio_player = ui.audio(audio_file).props('controls').style('width: 300px;')  
-        self.audio_player.play()  # Phát âm thanh
+        self.audio_player.play()
 
     def normalize(self, text):
         return str(text).lower().translate(str.maketrans('', '', string.punctuation.replace("'", "")))
@@ -45,13 +44,13 @@ class Dictation:
         if self.user_answer:
             result = self.check_answer()
             if result:
+                self.play_sound("https://raw.githubusercontent.com/Phamlong2675/Python-Project/refs/heads/main/Audio/effect%20sound/sound_correct.wav")
                 self.notification_label.text = 'Correct answer!'
                 self.notification_label.style('color: green;')
-                self.play_sound("https://raw.githubusercontent.com/Phamlong2675/Python-Project/refs/heads/main/Audio/effect%20sound/sound_correct.wav")
             else:
+                self.play_sound("https://raw.githubusercontent.com/Phamlong2675/Python-Project/refs/heads/main/Audio/effect%20sound/sound_wrong.mp3")
                 self.notification_label.text = 'Wrong answer!'
                 self.notification_label.style('color: red;')
-                self.play_sound("https://raw.githubusercontent.com/Phamlong2675/Python-Project/refs/heads/main/Audio/effect%20sound/sound_wrong.mp3")
         else:
             self.notification_label.text = 'Please enter your answer before checking.'
             self.notification_label.style('color: orange;')
@@ -62,25 +61,25 @@ class Dictation:
         self.notification_label.style('color: green;')
 
     def skip(self):
-        if len(self.data) > 0:  # Kiểm tra xem có dữ liệu trong DataFrame không
-            self.index = (self.index + 1) % len(self.data)  # Tăng chỉ số và quay lại đầu nếu vượt quá
+        if len(self.data) > 0:
+            self.index = (self.index + 1) % len(self.data)
             self.user_answer = ""
-            self.input.value = ""  # Xóa ô nhập câu trả lời
-            self.notification_label.text = ""  # Xóa nội dung thông báo
-            self.update_audio_file()  # Cập nhật âm thanh cho câu tiếp theo
+            self.input.value = "" 
+            self.notification_label.text = ""
+            self.update_audio_file()
             self.no_sens.delete()
             self.no_sens = ui.label(f'({self.index+1}/10)').style('font-size: 18px;')
 
     def turnback(self):
-        if len(self.data) > 0:  # Kiểm tra xem có dữ liệu trong DataFrame không
+        if len(self.data) > 0:
             if self.index > 0:
                 self.index -= 1
             else:
                 self.index = 9
             self.user_answer = ""
-            self.input.value = ""  # Xóa ô nhập câu trả lời
-            self.notification_label.text = ""  # Xóa nội dung thông báo
-            self.update_audio_file()  # Cập nhật âm thanh cho câu tiếp theo
+            self.input.value = "" 
+            self.notification_label.text = "" 
+            self.update_audio_file()
             self.no_sens.delete()
             self.no_sens = ui.label(f'({self.index+1}/10)').style('font-size: 18px;')
 
@@ -120,7 +119,7 @@ class Dictation:
                 self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic4hard.csv')
             elif self.selected_topic == 'Project - Hard':
                 self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic5hard.csv')
-        self.render_dictation_page()  # Hiển thị trang dictation
+        self.render_dictation_page() 
 
     def render_difficulty_page(self):
             self.difficulty_column.clear()  # Xóa nội dung cũ
