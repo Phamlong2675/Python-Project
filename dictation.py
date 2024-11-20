@@ -16,13 +16,6 @@ class Dictation:
             self.difficulty_column = ui.card().classes('w-1/2 max-w-screen-xl mx-auto items-center p-4 gap-6')
             self.topic_column = ui.card().classes('w-1/2 max-w-screen-xl mx-auto items-center p-4 gap-6')
             self.dictation_column = ui.card().classes('w-1/2 max-w-screen-xl mx-auto items-center p-4 gap-6')
-        # Tạo hàng chính để căn giữa
-        #with ui.row().style('height: 100vh; display: flex; justify-content: center; align-items: center;'):
-        #with ui.column().classes('w-full min-h-screen items-center p-4') \
-            #.style('background: linear-gradient(135deg, #f0f4ff, #e5e7ff)'):
-            #self.difficulty_column  
-            #self.topic_column  
-            #self.dictation_column  
         self.render_difficulty_page()  # Khởi động ứng dụng tại trang chọn độ khó
     def update_audio_file(self):
         audio_file = self.data.iloc[self.index]['audio_file']
@@ -102,7 +95,6 @@ class Dictation:
             self.dictation_column.visible = False
     def go_to_topic_selection(self, difficulty):
         self.selected_difficulty = difficulty
-        #ui.notify(f'Bạn đã chọn độ khó: {self.selected_difficulty}')
         self.render_topic_page()  # Hiển thị trang chọn chủ đề
     def render_topic_page(self):
         self.topic_column.clear()  # Xóa nội dung cũ
@@ -110,7 +102,6 @@ class Dictation:
             with ui.row().classes('w-full items-center gap-4 mb-6'):
                     ui.icon('school', size='32px').classes('text-indigo-600')
                     ui.label('DICTATION').classes('text-2xl font-bold text-indigo-600')
-            #ui.label(f'Độ khó đã chọn: {self.selected_difficulty}').style('margin-bottom: 20px; font-size: 24px;')
             ui.label(f'DICTATION TOPIC').style('margin-bottom: 10px;').classes('text-2xl font-semibold text-gray-800')
         
             # Tạo hàng cho các nút chủ đề
@@ -135,7 +126,6 @@ class Dictation:
         self.topic_column.visible = True
     def set_topic(self, topic):
         self.selected_topic = topic
-        #ui.notify(f'Bạn đã chọn chủ đề: {self.selected_topic}')
         self.start_dictation()
     def start_dictation(self):
         if self.selected_difficulty == 'Easy':
