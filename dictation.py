@@ -97,29 +97,24 @@ class Dictation:
         self.start_dictation()
 
     def start_dictation(self):
-        if self.selected_difficulty == 'Easy':
-            if self.selected_topic == 'Movies - Easy':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic1easy.csv')
-            elif self.selected_topic == 'Snowfall - Easy':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic2easy.csv')
-            elif self.selected_topic == 'Grant - Easy':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic3easy.csv')
-            elif self.selected_topic == 'Weather - Easy':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic4easy.csv')
-            elif self.selected_topic == 'Daily - Easy':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic5easy.csv')
-        elif self.selected_difficulty == 'Hard':
-            if self.selected_topic == 'Excursion - Hard':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic1hard.csv')
-            elif self.selected_topic == 'Healthy - Hard':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic2hard.csv')
-            elif self.selected_topic == 'Restaurant - Hard':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic3hard.csv')
-            elif self.selected_topic == 'Painting - Hard':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic4hard.csv')
-            elif self.selected_topic == 'Project - Hard':
-                self.load_data('https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic5hard.csv')
-        self.render_dictation_page() 
+        # Từ điển ánh xạ giữa (độ khó, chủ đề) và URL
+        topic_urls = {
+            ('Easy', 'Movies - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic1easy.csv',
+            ('Easy', 'Snowfall - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic2easy.csv',
+            ('Easy', 'Grant - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic3easy.csv',
+            ('Easy', 'Weather - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic4easy.csv',
+            ('Easy', 'Daily - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic5easy.csv',
+            ('Hard', 'Excursion - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic1hard.csv',
+            ('Hard', 'Healthy - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic2hard.csv',
+            ('Hard', 'Restaurant - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic3hard.csv',
+            ('Hard', 'Painting - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic4hard.csv',
+            ('Hard', 'Project - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic5hard.csv',
+        }
+        url = topic_urls.get((self.selected_difficulty, self.selected_topic))
+        if url:
+            self.load_data(url)
+        self.render_dictation_page()
+
 
     def render_difficulty_page(self):
             self.difficulty_column.clear()  # Xóa nội dung cũ
