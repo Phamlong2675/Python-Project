@@ -97,24 +97,22 @@ class Dictation:
         self.start_dictation()
 
     def start_dictation(self):
-        # Từ điển ánh xạ giữa (độ khó, chủ đề) và URL
         topic_urls = {
-            ('Easy', 'Movies - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic1easy.csv',
-            ('Easy', 'Snowfall - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic2easy.csv',
-            ('Easy', 'Grant - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic3easy.csv',
-            ('Easy', 'Weather - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic4easy.csv',
-            ('Easy', 'Daily - Easy'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic5easy.csv',
-            ('Hard', 'Excursion - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic1hard.csv',
-            ('Hard', 'Healthy - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic2hard.csv',
-            ('Hard', 'Restaurant - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic3hard.csv',
-            ('Hard', 'Painting - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic4hard.csv',
-            ('Hard', 'Project - Hard'): 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic5hard.csv',
+            'Movies - Easy': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic1easy.csv',
+            'Snowfall - Easy': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic2easy.csv',
+            'Grant - Easy': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic3easy.csv',
+            'Weather - Easy': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic4easy.csv',
+            'Daily - Easy': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic5easy.csv',
+            'Excursion - Hard': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic1hard.csv',
+            'Healthy - Hard': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic2hard.csv',
+            'Restaurant - Hard': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic3hard.csv',
+            'Painting - Hard': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic4hard.csv',
+            'Project - Hard': 'https://raw.githubusercontent.com/Phamlong2675/Python-Project/main/Audio/topic5hard.csv',
         }
-        url = topic_urls.get((self.selected_difficulty, self.selected_topic))
+        url = topic_urls.get(self.selected_topic)
         if url:
             self.load_data(url)
         self.render_dictation_page()
-
 
     def render_difficulty_page(self):
             self.difficulty_column.clear()  # Xóa nội dung cũ
